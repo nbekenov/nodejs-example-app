@@ -43,14 +43,11 @@ Actions:
           Sources:
             - WorkflowSource
         Environment:
-          Name: dev
+          Name: prod
           Connections:
             - Role: Main-Branch-Infrastructure
-              Name: "dev"
+              Name: "prod"
         Configuration:
-          # Container:
-          #   Registry: registry
-          #   Image: image
           Steps:
             - Run: export TF_VERSION=1.3.7 && wget -O terraform.zip "https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
             - Run: unzip terraform.zip && rm terraform.zip && mv terraform /usr/bin/terraform && chmod +x /usr/bin/terraform
@@ -59,7 +56,7 @@ Actions:
             - Run: terraform init -no-color
             - Run: terraform validate -no-color
             - Run: terraform plan -no-color -input=false
-            - Run: terraform apply -auto-approve -no-color -input=false
+            # - Run: terraform apply -auto-approve -no-color -input=false
       build-app:
         Compute:
           Type: EC2
@@ -75,10 +72,10 @@ Actions:
             - Name: IMAGE_VERSION
               Value: latest
         Environment:
-          Name: dev
+          Name: prod
           Connections:
             - Role: Main-Branch-Infrastructure
-              Name: "dev"
+              Name: "prod"
         Configuration: 
           Steps:
             - Run: npm ci
@@ -117,10 +114,10 @@ Actions:
             - Name: IMAGE_VERSION
               Value: latest
         Environment:
-          Name: dev
+          Name: prod
           Connections:
             - Role: Main-Branch-Infrastructure
-              Name: "dev"
+              Name: "prod"
         Configuration: 
           Steps:
             - name: Build an image from Dockerfile
@@ -160,34 +157,34 @@ Actions:
             - Name: package
               Files:
                 - "**/*"
-  Deploy:
-    DependsOn:
-    - Package
-    Actions:
-      create-infra:
-        Compute:
-          Type: EC2
-        Identifier: aws/build@v1
-        Inputs:
-          Sources:
-            - WorkflowSource
-        Environment:
-          Name: dev
-          Connections:
-            - Role: Main-Branch-Infrastructure
-              Name: "dev"
-        Configuration:
-          Steps:
-            - Run: scripts/terraform_install.sh
-            - Run: scripts/terraform_plan.sh iac/app_infra dev
-            - Run: cd iac/app_infra && terraform apply plan.out
-        Outputs:
-          AutoDiscoverReports:
-            Enabled: true
-            ReportNamePrefix: checkov
-            IncludePaths:
-              - "iac/app_infra/reports/*"
-            SuccessCriteria:
-              PassRate: 85
-              Vulnerabilities:
-                Severity: CRITICAL
+  # Deploy:
+  #   DependsOn:
+  #   - Package
+  #   Actions:
+  #     create-infra:
+  #       Compute:
+  #         Type: EC2
+  #       Identifier: aws/build@v1
+  #       Inputs:
+  #         Sources:
+  #           - WorkflowSource
+  #       Environment:
+  #         Name: dev
+  #         Connections:
+  #           - Role: Main-Branch-Infrastructure
+  #             Name: "dev"
+  #       Configuration:
+  #         Steps:
+  #           - Run: scripts/terraform_install.sh
+  #           - Run: scripts/terraform_plan.sh iac/app_infra dev
+  #           - Run: cd iac/app_infra && terraform apply plan.out
+  #       Outputs:
+  #         AutoDiscoverReports:
+  #           Enabled: true
+  #           ReportNamePrefix: checkov
+  #           IncludePaths:
+  #             - "iac/app_infra/reports/*"
+  #           SuccessCriteria:
+  #             PassRate: 85
+  #             Vulnerabilities:
+  #               Severity: CRITICAL

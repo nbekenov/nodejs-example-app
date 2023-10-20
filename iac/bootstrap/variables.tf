@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "state_file_bucket_name" {
   type    = string
-  default = "quest-project-tf-state-files"
+  default = "nodejs-demo-nbekenov-tf-state-files"
 }
 
 variable "state_file_lock_table_name" {
@@ -15,14 +15,14 @@ variable "state_file_lock_table_name" {
 
 variable "ecr_name" {
   type    = string
-  default = "quest"
+  default = "nodejs-demo"
 }
 
 variable "default_tags" {
   type = map(string)
   default = {
     "automation" = "terraform"
-    "project"    = "quest"
+    "project"    = "nodejs-demo"
     "component"  = "bootstrap"
   }
 }
