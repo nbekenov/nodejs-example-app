@@ -68,7 +68,7 @@ Actions:
             - Name: AWS_DEFAULT_REGION
               Value: us-east-1
             - Name: IMAGE_REPO_NAME
-              Value: quest
+              Value: nodejs-demo
             - Name: IMAGE_VERSION
               Value: latest
         Environment:
@@ -110,7 +110,7 @@ Actions:
             - Name: AWS_DEFAULT_REGION
               Value: us-east-1
             - Name: IMAGE_REPO_NAME
-              Value: quest
+              Value: nodejs-demo
             - Name: IMAGE_VERSION
               Value: latest
         Environment:
@@ -122,11 +122,11 @@ Actions:
           Steps:
             - name: Build an image from Dockerfile
               run: |
-                docker build -t quest:vulnscan .
+                docker build -t nodejs-demo:vulnscan .
             - name: Run Trivy vulnerability scanner
               uses: aquasecurity/trivy-action@master
               with:
-                image-ref: 'quest:vulnscan'
+                image-ref: 'nodejs-demo:vulnscan'
                 format: sarif
                 output: report.sarif
                 exit-code: '1'
