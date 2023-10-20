@@ -7,7 +7,7 @@ Triggers:
       - main
 
 Actions:
-  Security-Scan:
+  SecurityScan:
     Actions:
       SCA: # Software composition analysis
         Identifier: aws/github-actions-runner@v1
@@ -37,7 +37,7 @@ Actions:
                   Number: 0
   Build:
     DependsOn:
-    - Security-Scan
+    - SecurityScan
     Actions:
       bootstrap:
         Compute:
@@ -161,6 +161,7 @@ Actions:
             - Name: package
               Files:
                 - "**/*"
+
   # Deploy:
   #   DependsOn:
   #   - Package
