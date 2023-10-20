@@ -82,7 +82,7 @@ Actions:
               Name: "prod"
         Configuration: 
           Steps:
-            - Run: npm ci
+            - Run: npm install
             - Run: npx npm test
             - Run: npx npm run build
         Outputs:
