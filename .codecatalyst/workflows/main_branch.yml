@@ -36,6 +36,8 @@ Actions:
                   Severity: HIGH
                   Number: 0
   Build:
+    DependsOn:
+    - Security-Scan
     Actions:
       bootstrap:
         Compute:
