@@ -1,5 +1,5 @@
 {
-    "name": "quest",
+    "name": "nodejs-example-app",
     "version": "1.0.0",
     "description": "A simple Node.js application",
     "main": "src/app.js",
@@ -13,7 +13,7 @@
       "express": "^4.18.2"
     },
     "keywords": [],
-    "author": "Rearc",
+    "author": "nbekenov",
     "license": "ISC",
     "devDependencies": {
       "@types/jest": "^29.5.1",
