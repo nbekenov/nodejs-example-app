@@ -7,7 +7,7 @@ Triggers:
       - main
 
 Actions:
-  Build:
+  Security-Scan:
     Actions:
       SCA: # Software composition analysis
         Identifier: aws/github-actions-runner@v1
@@ -35,6 +35,8 @@ Actions:
                 Vulnerabilities:
                   Severity: HIGH
                   Number: 0
+  Build:
+    Actions:
       bootstrap:
         Compute:
           Type: EC2
