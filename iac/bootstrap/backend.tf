@@ -5,6 +5,5 @@ terraform {
     key            = "terraform-bootstrap-state-file/terraform.tfstate"
     encrypt        = "true"
     dynamodb_table = "terraform-state"
-    profile        = "prod"
   }
 }
